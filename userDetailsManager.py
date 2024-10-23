@@ -6,6 +6,7 @@ class userDetailsManager:
         #Initialize the manager and automatically load the array from the file."""
         self.filename = filename
         self.array = self.load_array()  # Load the array on initialization
+        
     def print_array(self):
         #Print the array."""
         print(self.array)

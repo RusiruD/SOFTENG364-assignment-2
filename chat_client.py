@@ -65,6 +65,8 @@ class ChatClient:
            print("Would you like to Login, Register or Quit?, type 'L' for Login, 'R' for Register or 'Q' for Quit")
         
         choice = input("Choice: ")
+        print("Type 'Q' in both username and password to quit and leave the chat room")
+
 
         # Continuously ask for the choice until the user types 'L' or 'R'
         if userDetails.get_array_size() == 0:
@@ -72,17 +74,19 @@ class ChatClient:
             while choice != 'R' and choice != 'Q':
                 print("Invalid choice, please type 'R' for Register or 'Q' for Quit")
                 choice = input("Choice: ")
+                print("Type 'Q' in both username and password to quit and leave the chat room")
+
         else:
-            print(userDetails.get_array_size())
             # Allow 'L', 'R', or 'E' for non-zero array size
             while choice != 'L' and choice != 'R' and choice != 'Q':
                 print("Invalid choice, please type 'L' for Login, 'R' for Register, or 'Q' for Quit")
                 choice = input("Choice: ")
+                print("Type 'Q' in both username and password to quit and leave the chat room")
             
 
         # Allow the user to input a username and a password
         if choice == 'L' and userDetails.get_array_size() != 0:
-            print("Login, type 'Q' in both username and password to quit and leave the chat room")
+            print("Login")
             while True:
                 username = input('Username: ')
                 password = maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')
@@ -117,7 +121,9 @@ class ChatClient:
             while userDetails.find_username(username):
                 print("Username already exists")
                 username = input('Username: ')
-           
+            if(username == 'Q' and password == 'Q'):
+                print("Exiting chat room")
+                exit()
             # Allow user to input a password and hash it using bcrypt and add it to the userDetails array
             password = maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')
             password_bytes = password.encode('utf-8')  # Convert string to bytes

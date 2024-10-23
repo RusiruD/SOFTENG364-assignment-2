@@ -17,7 +17,7 @@ class ChatServer(object):
     """ An example chat server using select """
     def __init__(self, port, backlog=5):
       
-     
+        self.last_client = None
         self.clients = 0
         self.clientmap = {}
         self.outputs = []  # list output sockets
@@ -103,6 +103,8 @@ class ChatServer(object):
                     try:
                         data = receive(sock)
                         if data:
+                            if(sock==self.last_client):
+                                decrement_counter(1)
                             # Send as new client's message...
                             msg = f'{self.get_client_name(sock)}: {data}'
                           
@@ -110,6 +112,7 @@ class ChatServer(object):
                             for output in self.outputs:
                                 if output != sock:
                                     send(output, msg)
+                            self.last_client=sock
                         else:
                             print(f'Chat server: {sock.fileno()} hung up')
                             self.clients -= 1
