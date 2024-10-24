@@ -119,7 +119,7 @@ class ChatClient:
                 # Check if the username is empty, if it is ask the user to input a valid username           
             while len(username) == 0:
                  print("Username cannot be empty. Please enter a valid username.")
-                 username = input('Username: ')
+                 username = input('Username: ').strip()
             # Check if the username already exists, if it does ask the user to input a different username
             while userDetails.find_username(username):
                 print("Username already exists")
@@ -130,7 +130,7 @@ class ChatClient:
             password = (maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')).strip()
             while len(password) == 0:
                    print("Password cannot be empty. Please enter a valid password.")
-                   password = maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')
+                   password = maskpass.advpass(prompt='Password (Left Ctrl to reveal): ').strip()
 
             if(username == 'Q' and password == 'Q'):
                 print("Exiting chat room")
