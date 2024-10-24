@@ -115,17 +115,27 @@ class ChatClient:
         # Allow the user to input a username and a password and register for the service
         elif choice == 'R':
             print("Register")
-            username = input('Username: ')
-
+            username = input('Username: ').strip()
+                # Check if the username is empty, if it is ask the user to input a valid username           
+            while len(username) == 0:
+                 print("Username cannot be empty. Please enter a valid username.")
+                 username = input('Username: ')
             # Check if the username already exists, if it does ask the user to input a different username
             while userDetails.find_username(username):
                 print("Username already exists")
                 username = input('Username: ')
+           
+          
+            # Allow user to input a password and hash it using bcrypt and add it to the userDetails array
+            password = (maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')).strip()
+            while len(password) == 0:
+                   print("Password cannot be empty. Please enter a valid password.")
+                   password = maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')
+
             if(username == 'Q' and password == 'Q'):
                 print("Exiting chat room")
                 exit()
-            # Allow user to input a password and hash it using bcrypt and add it to the userDetails array
-            password = maskpass.advpass(prompt='Password (Left Ctrl to reveal): ')
+            
             password_bytes = password.encode('utf-8')  # Convert string to bytes
             hashed_password = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
             loggedin = 1
