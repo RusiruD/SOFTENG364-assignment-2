@@ -8,7 +8,7 @@ class userDetailsManager:
         self.array = self.load_array()  # Load the array on initialization
         
     def print_array(self):
-        #Print the array."""
+        #Print the array.
         print(self.array)
 
     def add_user(self, username, password, login):
